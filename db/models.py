@@ -1,4 +1,3 @@
-from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
@@ -64,7 +63,7 @@ class User(AbstractUser):
 
 
 class Order(models.Model):
-    created_at = models.DateTimeField(default=timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -78,7 +77,7 @@ class Ticket(models.Model):
     movie_session = models.ForeignKey(
         MovieSession, on_delete=models.CASCADE, related_name="movie_sessions"
     )
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="orders")
     row = models.IntegerField()
     seat = models.IntegerField()
 
