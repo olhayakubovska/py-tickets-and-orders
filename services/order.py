@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.db.models import QuerySet
 
 
+@transaction.atomic
 def create_order(tickets: list[dict], username: str, date: str | None = None) -> None:
     user_model = get_user_model()
     user = user_model.objects.get(username=username)
